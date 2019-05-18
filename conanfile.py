@@ -45,17 +45,19 @@ class LibibertyConan(ConanFile):
         if not self._autotools:
             args = ["--enable-install-libiberty"]
             self._autotools = AutoToolsBuildEnvironment(self, win_bash=tools.os_info.is_windows)
-            self._autotools.configure(args=args, configure_dir=self._libiberty_folder)
+            self._autotools.configure(args=args)
         return self._autotools
 
     def build(self):
-        autotools = self._configure_autotools()
-        autotools.make()
+        with tools.chdir(self._libiberty_folder):
+            autotools = self._configure_autotools()
+            autotools.make()
 
     def package(self):
-        self.copy(pattern="COPYING.LIB", dst="licenses", src=self._libiberty_folder)
-        autotools = self._configure_autotools()
-        autotools.install()
+        with tools.chdir(self._libiberty_folder):
+            self.copy(pattern="COPYING.LIB", dst="licenses")
+            autotools = self._configure_autotools()
+            autotools.install()
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
