@@ -24,7 +24,7 @@ class LibibertyConan(ConanFile):
 
     @property
     def _libiberty_folder(self):
-        return os.path.join("source_subfolder", self.name)
+        return os.path.join(self._source_subfolder, self.name)
 
     def config_options(self):
         if self.settings.os == 'Windows':
