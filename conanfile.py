@@ -45,25 +45,25 @@ class LibibertyConan(ConanFile):
         if not self._autotools:
             args = ["--enable-install-libiberty"]
             self._autotools = AutoToolsBuildEnvironment(self, win_bash=tools.os_info.is_windows)
-            self._autotools.configure(args=args)
+            self._autotools.configure(args=args, configure_dir=self._libiberty_folder)
         return self._autotools
 
     def build(self):
-        with tools.chdir(self._libiberty_folder):
-            autotools = self._configure_autotools()
-            autotools.make()
+        autotools = self._configure_autotools()
+        autotools.make()
 
     def package(self):
-        with tools.chdir(self._libiberty_folder):
-            self.copy(pattern="COPYING.LIB", dst="licenses")
-            autotools = self._configure_autotools()
-            autotools.install()
-            # FIXME (uilian): GCC x86 installs in /lib32
-            lib32dir = os.path.join(self.package_folder, "lib32")
-            if os.path.exists(lib32dir):
-                libdir = os.path.join(self.package_folder, "lib")
-                tools.rmdir(libdir)
-                os.rename(lib32dir, libdir)
+        self.copy(pattern="COPYING.LIB", dst="licenses")
+        autotools = self._configure_autotools()
+        autotools.install()
+        self._package_x86()
+
+    def _package_x86(self):
+        lib32dir = os.path.join(self.package_folder, "lib32")
+        if os.path.exists(lib32dir):
+            libdir = os.path.join(self.package_folder, "lib")
+            tools.rmdir(libdir)
+            os.rename(lib32dir, libdir)
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
