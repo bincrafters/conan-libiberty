@@ -58,6 +58,12 @@ class LibibertyConan(ConanFile):
             self.copy(pattern="COPYING.LIB", dst="licenses")
             autotools = self._configure_autotools()
             autotools.install()
+            # FIXME (uilian): GCC x86 installs in /lib32
+            lib32dir = os.path.join(self.package_folder, "lib32")
+            if os.path.exists(lib32dir):
+                libdir = os.path.join(self.package_folder, "lib")
+                tools.rmdir(libdir)
+                os.rename(lib32dir, libdir)
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
