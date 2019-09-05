@@ -34,7 +34,7 @@ class LibibertyConan(ConanFile):
         del self.settings.compiler.libcxx
 
     def source(self):
-        sha256 = "cc472b9d5ac4c7fdd1dc43c0e1cb00294c658bba29949894cc782506f7cbf149"
+        sha256 = "bcd5db78a4c87fe5ea54fcad2df230bed33b90ad58f7cb2e4127b858a4012733"
         source_url = "https://github.com/gcc-mirror/gcc"
         pkg_version = self.version.replace('.', '_')
         tools.get("{0}/archive/gcc-{1}-release.tar.gz".format(source_url, pkg_version), sha256=sha256)
