@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from conans import ConanFile, tools, AutoToolsBuildEnvironment
 import os
 
@@ -32,6 +31,7 @@ class LibibertyConan(ConanFile):
 
     def configure(self):
         del self.settings.compiler.libcxx
+        del self.settings.compiler.cppstd
 
     def source(self):
         sha256 = "bcd5db78a4c87fe5ea54fcad2df230bed33b90ad58f7cb2e4127b858a4012733"

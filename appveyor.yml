@@ -5,11 +5,6 @@ environment:
     CONAN_BASH_PATH: "c:\\msys64\\usr\\bin\\bash"
 
     matrix:
-        - MINGW_CONFIGURATIONS: "4.9@x86_64@seh@posix"
-        - MINGW_CONFIGURATIONS: "5@x86_64@seh@posix"
-        - MINGW_CONFIGURATIONS: "6@x86_64@seh@posix"
-        - MINGW_CONFIGURATIONS: "7@x86_64@seh@posix"
-        - MINGW_CONFIGURATIONS: "8@x86_64@seh@posix"
 
 install:
   - set PATH=%PYTHON_HOME%;%PYTHON_HOME%/Scripts/;%PATH%
