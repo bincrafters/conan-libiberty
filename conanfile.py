@@ -9,7 +9,6 @@ class LibibertyConan(ConanFile):
     topics = ("conan", "libiberty", "gnu", "gnu-collection")
     url = "https://github.com/bincrafters/conan-libiberty"
     homepage = "https://gcc.gnu.org/onlinedocs/libiberty"
-    author = "Bincrafters <bincrafters@gmail.com>"
     license = "LGPL-2.1"
     exports = ["LICENSE.md"]
     settings = "os", "arch", "compiler", "build_type"
